@@ -1,0 +1,96 @@
+// PaymentSystemDemo.java
+
+interface PaymentMethod {
+    void pay(double amount);
+}
+
+// Credit Card Payment
+class CreditCardPayment implements PaymentMethod {
+
+    private String cardHolder;
+    private String cardNumber;
+
+    public CreditCardPayment(String cardHolder, String cardNumber) {
+        this.cardHolder = cardHolder;
+        this.cardNumber = cardNumber;
+    }
+
+    @Override
+    public void pay(double amount) {
+        System.out.println("Processing Credit Card Payment...");
+        System.out.println("Card Holder: " + cardHolder);
+        System.out.println("Amount Paid: $" + amount);
+        System.out.println("Payment Successful via Credit Card\n");
+    }
+}
+
+// UPI Payment
+class UPIPayment implements PaymentMethod {
+
+    private String upiId;
+
+    public UPIPayment(String upiId) {
+        this.upiId = upiId;
+    }
+
+    @Override
+    public void pay(double amount) {
+        System.out.println("Processing UPI Payment...");
+        System.out.println("UPI ID: " + upiId);
+        System.out.println("Amount Paid: $" + amount);
+        System.out.println("Payment Successful via UPI\n");
+    }
+}
+
+// PayPal Payment
+class PayPalPayment implements PaymentMethod {
+
+    private String email;
+
+    public PayPalPayment(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public void pay(double amount) {
+        System.out.println("Processing PayPal Payment...");
+        System.out.println("Account Email: " + email);
+        System.out.println("Amount Paid: $" + amount);
+        System.out.println("Payment Successful via PayPal\n");
+    }
+}
+
+// Payment Processor
+class PaymentProcessor {
+
+    public void processPayment(PaymentMethod method, double amount) {
+        System.out.println("Initiating Payment...");
+        method.pay(amount);
+    }
+}
+
+// Main Application
+public class PaymentSystemDemo {
+
+    public static void main(String[] args) {
+
+        PaymentProcessor processor = new PaymentProcessor();
+
+        PaymentMethod creditCard = new CreditCardPayment(
+                "Dhanush Kumar",
+                "XXXX-XXXX-XXXX-1234"
+        );
+
+        PaymentMethod upi = new UPIPayment(
+                "dhanush@upi"
+        );
+
+        PaymentMethod paypal = new PayPalPayment(
+                "dhanush@email.com"
+        );
+
+        processor.processPayment(creditCard, 5000);
+        processor.processPayment(upi, 2500);
+        processor.processPayment(paypal, 1200);
+    }
+}
